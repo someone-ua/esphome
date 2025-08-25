@@ -23,15 +23,13 @@ DECLARE_REMOTE_PROTOCOL(Electra)
 
 template<typename... Ts> class ElectraAction : public RemoteTransmitterActionBase<Ts...> {
  public:
-  TEMPLATABLE_VALUE(uint16_t, address)
-  TEMPLATABLE_VALUE(uint16_t, command)
-  TEMPLATABLE_VALUE(uint16_t, command_repeats)
+  TEMPLATABLE_VALUE(uint64_t, value1)
+  TEMPLATABLE_VALUE(uint64_t, value2)
 
   void encode(RemoteTransmitData *dst, Ts... x) override {
     ElectraData data{};
-    data.address = this->address_.value(x...);
-    data.command = this->command_.value(x...);
-    data.command_repeats = this->command_repeats_.value(x...);
+    data.value1 = this->value1_.value(x...);
+    data.value2 = this->value2_.value(x...);
     ElectraProtocol().encode(dst, data);
   }
 };
