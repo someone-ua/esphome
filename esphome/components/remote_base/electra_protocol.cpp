@@ -76,6 +76,8 @@ optional<ElectraData> ElectraProtocol::decode(RemoteReceiveData src) {
     }
   }
 
+  ESP_LOGD(TAG, "Command decoded: 0x%04X", data.command);
+
   while (src.peek_item(BIT_HIGH_US, BIT_ONE_LOW_US) || src.peek_item(BIT_HIGH_US, BIT_ZERO_LOW_US)) {
     uint16_t command = 0;
     for (uint16_t mask = 1; mask; mask <<= 1) {
