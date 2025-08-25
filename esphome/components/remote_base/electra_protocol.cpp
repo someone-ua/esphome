@@ -9,8 +9,8 @@ static const char *const TAG = "remote.electra";
 static const uint32_t HEADER_HIGH_US = 3120;
 static const uint32_t HEADER_LOW_US = 1570;
 static const uint32_t BIT_HIGH_US = 560;
-static const uint32_t BIT_ONE_LOW_US = 1060;
-static const uint32_t BIT_ZERO_LOW_US = 250;
+static const uint32_t BIT_ONE_LOW_US = 1000;
+static const uint32_t BIT_ZERO_LOW_US = 200;
 
 void ElectraProtocol::encode(RemoteTransmitData *dst, const ElectraData &data) {
   ESP_LOGD(TAG, "Sending Electra: address=0x%04X, command=0x%04X command_repeats=%d", data.address, data.command,
