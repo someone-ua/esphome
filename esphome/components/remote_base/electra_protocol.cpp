@@ -63,12 +63,15 @@ optional<ElectraData> ElectraProtocol::decode(RemoteReceiveData src) {
     }
   }
 
+  ESP_LODGD(TAG, "Address decoded: 0x%04X", data.address);
+
   for (uint16_t mask = 1; mask; mask <<= 1) {
     if (src.expect_item(BIT_HIGH_US, BIT_ONE_LOW_US)) {
       data.command |= mask;
     } else if (src.expect_item(BIT_HIGH_US, BIT_ZERO_LOW_US)) {
       data.command &= ~mask;
     } else {
+      ESP_LOGD(TAG, "Command decoding failed at mask 0x%04X", mask);
       return {};
     }
   }
