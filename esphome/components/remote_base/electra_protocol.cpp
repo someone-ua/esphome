@@ -51,6 +51,7 @@ optional<ElectraData> ElectraProtocol::decode(RemoteReceiveData src) {
   if (!src.expect_item(HEADER_HIGH_US, HEADER_LOW_US))
     return {};
 
+  ESP_LODGD(TAG, "Header matched");
   for (uint16_t mask = 1; mask; mask <<= 1) {
     if (src.expect_item(BIT_HIGH_US, BIT_ONE_LOW_US)) {
       data.address |= mask;
