@@ -43,70 +43,46 @@ void ElectraProtocol::encode(RemoteTransmitData *dst, const ElectraData &data) {
 }
 optional<ElectraData> ElectraProtocol::decode(RemoteReceiveData src) {
   ElectraData data{
-      .address = 0,
-      .command = 0,
-      .command_repeats = 1,
+      .value1 = 0,
+      .value2 = 0,
   };
   ESP_LOGD(TAG, "Decoding Electra with %d entries", src.size());
   if (!src.expect_item(HEADER_HIGH_US, HEADER_LOW_US))
     return {};
 
   ESP_LOGD(TAG, "Header matched");
-  for (uint16_t mask = 1; mask; mask <<= 1) {
+  for (uint64_t mask = 1; mask; mask <<= 1) {
     if (src.expect_item(BIT_HIGH_US, BIT_ONE_LOW_US)) {
-      data.address |= mask;
+      data.value1 |= mask;
     } else if (src.expect_item(BIT_HIGH_US, BIT_ZERO_LOW_US)) {
-      data.address &= ~mask;
+      data.value1 &= ~mask;
     } else {
-      ESP_LOGD(TAG, "Address decoding failed at mask 0x%04X", mask);
+      ESP_LOGD(TAG, "Value1 decoding failed at mask 0x%04X", mask);
       return {};
     }
   }
 
-  ESP_LOGD(TAG, "Address decoded: 0x%04X", data.address);
+  ESP_LOGD(TAG, "Value1 decoded: 0x%04X", data.value1);
 
-  for (uint16_t mask = 1; mask; mask <<= 1) {
+  ESP_LOGD(TAG, "Header matched");
+  for (uint64_t mask = 1; mask; mask <<= 1) {
     if (src.expect_item(BIT_HIGH_US, BIT_ONE_LOW_US)) {
-      data.command |= mask;
+      data.value2 |= mask;
     } else if (src.expect_item(BIT_HIGH_US, BIT_ZERO_LOW_US)) {
-      data.command &= ~mask;
+      data.value2 &= ~mask;
     } else {
-      ESP_LOGD(TAG, "Command decoding failed at mask 0x%04X", mask);
+      ESP_LOGD(TAG, "Value2 decoding failed at mask 0x%04X", mask);
       return {};
     }
   }
 
-  ESP_LOGD(TAG, "Command decoded: 0x%04X", data.command);
-
-  while (src.peek_item(BIT_HIGH_US, BIT_ONE_LOW_US) || src.peek_item(BIT_HIGH_US, BIT_ZERO_LOW_US)) {
-    uint16_t command = 0;
-    for (uint16_t mask = 1; mask; mask <<= 1) {
-      if (src.expect_item(BIT_HIGH_US, BIT_ONE_LOW_US)) {
-        command |= mask;
-      } else if (src.expect_item(BIT_HIGH_US, BIT_ZERO_LOW_US)) {
-        command &= ~mask;
-      } else {
-        ESP_LOGD(TAG, "Repeated command decoding failed at mask 0x%04X", mask);
-        return {};
-      }
-    }
-
-    ESP_LOGD(TAG, "Repeated command decoded: 0x%04X", command);
-
-    // Make sure the extra/repeated data matches original command
-    if (command != data.command) {
-      return {};
-    }
-
-    data.command_repeats += 1;
+  ESP_LOGD(TAG, "Value2 decoded: 0x%04X", data.value2);
   }
 
-  src.expect_mark(BIT_HIGH_US);
   return data;
 }
 void ElectraProtocol::dump(const ElectraData &data) {
-  ESP_LOGI(TAG, "Received Electra: address=0x%04X, command=0x%04X command_repeats=%d", data.address, data.command,
-           data.command_repeats);
+  ESP_LOGI(TAG, "Received Electra: value1=0x%04X, value2=0x%04X", data.value1, data.value2);
 }
 
 }  // namespace remote_base
