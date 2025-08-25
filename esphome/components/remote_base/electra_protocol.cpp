@@ -47,6 +47,7 @@ optional<ElectraData> ElectraProtocol::decode(RemoteReceiveData src) {
       .command = 0,
       .command_repeats = 1,
   };
+  ESP_LOGD(TAG, "Decoding Electra with %d entries", src.size());
   if (!src.expect_item(HEADER_HIGH_US, HEADER_LOW_US))
     return {};
 
