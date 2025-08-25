@@ -91,7 +91,7 @@ optional<ElectraData> ElectraProtocol::decode(RemoteReceiveData src) {
       }
     }
 
-    ESP_LODG(TAG, "Repeated command decoded: 0x%04X", command);
+    ESP_LOGD(TAG, "Repeated command decoded: 0x%04X", command);
 
     // Make sure the extra/repeated data matches original command
     if (command != data.command) {
