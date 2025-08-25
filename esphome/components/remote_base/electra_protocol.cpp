@@ -86,9 +86,12 @@ optional<ElectraData> ElectraProtocol::decode(RemoteReceiveData src) {
       } else if (src.expect_item(BIT_HIGH_US, BIT_ZERO_LOW_US)) {
         command &= ~mask;
       } else {
+        ESP_LOGD(TAG, "Repeated command decoding failed at mask 0x%04X", mask);
         return {};
       }
     }
+
+    ESP_LODG(TAG, "Repeated command decoded: 0x%04X", command);
 
     // Make sure the extra/repeated data matches original command
     if (command != data.command) {
