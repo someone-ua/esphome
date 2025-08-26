@@ -21,39 +21,30 @@ optional<ElectraData> ElectraProtocol::decode(RemoteReceiveData src) {
       .value1 = 0,
       .value2 = 0,
   };
-  ESP_LOGD(TAG, "Decoding Electra with %d entries", src.size());
   if (!src.expect_item(HEADER_HIGH_US, HEADER_LOW_US))
     return {};
 
-  ESP_LOGD(TAG, "Header matched");
   for (uint64_t mask = 1; mask; mask <<= 1) {
     if (src.expect_item(BIT_HIGH_US, BIT_ONE_LOW_US)) {
       data.value1 |= mask;
     } else if (src.expect_item(BIT_HIGH_US, BIT_ZERO_LOW_US)) {
       data.value1 &= ~mask;
     } else {
-      ESP_LOGD(TAG, "Value1 decoding failed at mask 0x%04X", mask);
       return {};
     }
   }
 
-  ESP_LOGD(TAG, "Value1 decoded: 0x%04X", data.value1);
-
   int i = 0;
-  for (uint48_t mask = 1; mask; mask <<= 1) {
+  for (uint64_t mask = 1; mask; mask <<= 1) {
     if (src.expect_item(BIT_HIGH_US, BIT_ONE_LOW_US)) {
       data.value2 |= mask;
     } else if (src.expect_item(BIT_HIGH_US, BIT_ZERO_LOW_US)) {
       data.value2 &= ~mask;
     } else {
-      ESP_LOGD(TAG, "Value2 decoding failed at mask 0x%X", mask);
       break;
     }
     i++;
   }
-  ESP_LOGD(TAG, "Value2 decoded bits: %d", i);
-
-  ESP_LOGD(TAG, "Value2 decoded: 0x%X", data.value2);
 
   return data;
 }
