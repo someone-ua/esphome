@@ -52,11 +52,11 @@ void ElectraProtocol::dump(const ElectraData &data) {
   ESP_LOGI(TAG, "Received Electra: magic=0x%016X, payload=0x%016X", data.magic, data.payload.value);
   if ((data.payload.fields.mod_and_temp >= 0x7a) && (data.payload.fields.mod_and_temp <= 0x89))
   {
-    ESP_LOGI(TAG, " mode: heat, temp: %uC", 169 - data.payload.fields.mod_and_temp);
+    ESP_LOGI(TAG, " mode: heat, temp: %uC", 137 - data.payload.fields.mod_and_temp);
   }
   else if (data.payload.fields.mod_and_temp <= 0x0B)
   {
-    ESP_LOGI(TAG, " mode: cool, temp: %uC", 27 - (data.payload.fields.mod_and_temp & 0xFF));
+    ESP_LOGI(TAG, " mode: cool, temp: %uC", 27 - data.payload.fields.mod_and_temp);
   }
 
   ESP_LOGI(TAG, "  bytes: %02X %02X %02X %02X %02X %02X %02X %02X", data.payload.bytes[0], data.payload.bytes[1],
