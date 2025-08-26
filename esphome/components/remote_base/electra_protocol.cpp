@@ -49,21 +49,13 @@ optional<ElectraData> ElectraProtocol::decode(RemoteReceiveData src) {
   return data;
 }
 void ElectraProtocol::dump(const ElectraData &data) {
+  ESP_LOGI(TAG, " payload value: %016X", data.payload.value);
   ESP_LOGI(TAG, "Received Electra: magic=0x%016X, payload=0x%016X", data.magic, data.payload.value);
-  // if ((data.payload.fields.mod_and_temp >= 0x7a) && (data.payload.fields.mod_and_temp <= 0x89))
-  // {
-  //   ESP_LOGI(TAG, " mode: heat, temp: %uC", 153 - data.payload.fields.mod_and_temp);
-  // }
-  // else if ((data.payload.fields.mod_and_temp <= 0x0B) || ((data.payload.fields.mod_and_temp <= 0xFF) && (data.payload.fields.mod_and_temp >= 0xFC)))
-  // {
-  //   ESP_LOGI(TAG, " mode: cool, temp: %uC", 27 - (int8_t)data.payload.fields.mod_and_temp);
-  // }
 
   ESP_LOGI(TAG, "  bytes: %02X %02X %02X %02X %02X %02X %02X %02X", data.payload.bytes[0], data.payload.bytes[1],
            data.payload.bytes[2], data.payload.bytes[3], data.payload.bytes[4], data.payload.bytes[5],
            data.payload.bytes[6], data.payload.bytes[7]);
   ESP_LOGI(TAG, "  words: %08X %08X", data.payload.words[0], data.payload.words[1]);
-  ESP_LOGI(TAG, " payload value: %016X", data.payload.value);
 }
 
 }  // namespace remote_base
