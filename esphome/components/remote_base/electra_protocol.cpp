@@ -13,34 +13,9 @@ static const uint32_t BIT_ONE_LOW_US = 1060;
 static const uint32_t BIT_ZERO_LOW_US = 260;
 
 void ElectraProtocol::encode(RemoteTransmitData *dst, const ElectraData &data) {
-  ESP_LOGD(TAG, "Sending Electra: address=0x%04X, command=0x%04X command_repeats=%d", data.address, data.command,
-           data.command_repeats);
 
-  dst->reserve(2 + 32 + 32 * data.command_repeats + 2);
-  dst->set_carrier_frequency(38000);
-
-  dst->item(HEADER_HIGH_US, HEADER_LOW_US);
-
-  for (uint16_t mask = 1; mask; mask <<= 1) {
-    if (data.address & mask) {
-      dst->item(BIT_HIGH_US, BIT_ONE_LOW_US);
-    } else {
-      dst->item(BIT_HIGH_US, BIT_ZERO_LOW_US);
-    }
-  }
-
-  for (uint16_t repeats = 0; repeats < data.command_repeats; repeats++) {
-    for (uint16_t mask = 1; mask; mask <<= 1) {
-      if (data.command & mask) {
-        dst->item(BIT_HIGH_US, BIT_ONE_LOW_US);
-      } else {
-        dst->item(BIT_HIGH_US, BIT_ZERO_LOW_US);
-      }
-    }
-  }
-
-  dst->mark(BIT_HIGH_US);
 }
+
 optional<ElectraData> ElectraProtocol::decode(RemoteReceiveData src) {
   ElectraData data{
       .value1 = 0,
