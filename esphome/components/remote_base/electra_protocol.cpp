@@ -39,15 +39,13 @@ optional<ElectraData> ElectraProtocol::decode(RemoteReceiveData src) {
 
   ESP_LOGD(TAG, "Value1 decoded: 0x%04X", data.value1);
 
-  ESP_LOGD(TAG, "Header matched");
   for (uint64_t mask = 1; mask; mask <<= 1) {
     if (src.expect_item(BIT_HIGH_US, BIT_ONE_LOW_US)) {
       data.value2 |= mask;
     } else if (src.expect_item(BIT_HIGH_US, BIT_ZERO_LOW_US)) {
       data.value2 &= ~mask;
     } else {
-      ESP_LOGD(TAG, "Value2 decoding failed at mask 0x%04X", mask);
-      return {};
+      break;
     }
   }
 
