@@ -45,12 +45,12 @@ optional<ElectraData> ElectraProtocol::decode(RemoteReceiveData src) {
     } else if (src.expect_item(BIT_HIGH_US, BIT_ZERO_LOW_US)) {
       data.value2 &= ~mask;
     } else {
-      ESP_LOGD(TAG, "Value2 decoding failed at mask 0x%04X", mask);
+      ESP_LOGD(TAG, "Value2 decoding failed at mask 0x%X", mask);
       break;
     }
   }
 
-  ESP_LOGD(TAG, "Value2 decoded: 0x%04X", data.value2);
+  ESP_LOGD(TAG, "Value2 decoded: 0x%X", data.value2);
 
   return data;
 }
