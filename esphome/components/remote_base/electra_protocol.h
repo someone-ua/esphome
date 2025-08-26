@@ -12,7 +12,7 @@ struct ElectraData {
       uint64_t value;
       struct {
           uint something : 40;
-          uint temperature : 8;
+          uint temperature : 7;
       };
   } payload;
 
@@ -29,18 +29,18 @@ class ElectraProtocol : public RemoteProtocol<ElectraData> {
 
 DECLARE_REMOTE_PROTOCOL(Electra)
 
-template<typename... Ts> class ElectraAction : public RemoteTransmitterActionBase<Ts...> {
- public:
-  TEMPLATABLE_VALUE(uint64_t, magic)
-  TEMPLATABLE_VALUE(uint64_t, payload.value)
+// template<typename... Ts> class ElectraAction : public RemoteTransmitterActionBase<Ts...> {
+//  public:
+//   TEMPLATABLE_VALUE(uint64_t, magic)
+//   TEMPLATABLE_VALUE(uint64_t, payload)
 
-  void encode(RemoteTransmitData *dst, Ts... x) override {
-    ElectraData data{};
-    data.magic = this->magic_.value(x...);
-    data.payload.value = this->data.payload.value_.value(x...);
-    ElectraProtocol().encode(dst, data);
-  }
-};
+//   void encode(RemoteTransmitData *dst, Ts... x) override {
+//     ElectraData data{};
+//     data.magic = this->magic_.value(x...);
+//     data.payload = this->data.payload_.value(x...);
+//     ElectraProtocol().encode(dst, data);
+//   }
+// };
 
 }  // namespace remote_base
 }  // namespace esphome
