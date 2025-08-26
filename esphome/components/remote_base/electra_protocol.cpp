@@ -37,9 +37,9 @@ optional<ElectraData> ElectraProtocol::decode(RemoteReceiveData src) {
   int i = 0;
   for (uint64_t mask = 1; mask; mask <<= 1) {
     if (src.expect_item(BIT_HIGH_US, BIT_ONE_LOW_US)) {
-      data.payload.value |= mask;
+      data.payload.valint64 |= mask;
     } else if (src.expect_item(BIT_HIGH_US, BIT_ZERO_LOW_US)) {
-      data.payload.value &= ~mask;
+      data.payload.valint64 &= ~mask;
     } else {
       break;
     }
