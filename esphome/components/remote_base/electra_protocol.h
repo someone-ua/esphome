@@ -10,9 +10,9 @@ struct ElectraData {
   union payload
   {
       uint64_t value;
-      struct {
-          uint64_t something : 63;
-          uint temperature : 1;
+      struct __attribute__((packed)) {
+          uint64_t something : 24;
+          uint temperature : 4;
       };
   } payload;
 
