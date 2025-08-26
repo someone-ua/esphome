@@ -50,8 +50,8 @@ optional<ElectraData> ElectraProtocol::decode(RemoteReceiveData src) {
 }
 void ElectraProtocol::dump(const ElectraData &data) {
   ESP_LOGI(TAG, "Received Electra: magic=0x%016X, payload=0x%016X", data.magic, data.payload.value);
-  ESP_LOGI(TAG, "  something=0x%X, temperature=%X", data.payload.something, data.payload.temperature);
-  ESP_LOGI(TAG, " padding=0x%X", data.payload.padding);
+  ESP_LOGI(TAG, "  something=0x%X, temperature=%X", data.payload.fields.something, data.payload.fields.temperature);
+  ESP_LOGI(TAG, " padding=0x%X", data.payload.fields.padding);
 }
 
 }  // namespace remote_base

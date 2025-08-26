@@ -14,7 +14,7 @@ struct ElectraData {
             uint64_t padding : 36;
             uint8_t temperature : 4;
             uint32_t something : 24;
-      };
+      } fields;
   } payload;
 
 
