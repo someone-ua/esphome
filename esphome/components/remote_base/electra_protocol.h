@@ -20,7 +20,7 @@ struct ElectraData {
   };
 
 
-  bool operator==(const ElectraData &rhs) const { return magic == rhs.magic && payload.value == rhs.payload.value; }
+  bool operator==(const ElectraData &rhs) const { return magic == rhs.magic && value == rhs.value; }
 };
 
 class ElectraProtocol : public RemoteProtocol<ElectraData> {
