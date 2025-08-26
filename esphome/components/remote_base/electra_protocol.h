@@ -7,7 +7,7 @@ namespace remote_base {
 
 struct ElectraData {
   uint64_t magic;
-  union payload
+  union
   {
       uint64_t value;
       uint8_t bytes[8];
@@ -17,7 +17,7 @@ struct ElectraData {
       //       unsigned  mod_and_temp : 8;
       //       uint16_t   : 16;
       // } fields;
-  };
+  } payload;
 
 
   bool operator==(const ElectraData &rhs) const { return magic == rhs.magic && value == rhs.value; }
