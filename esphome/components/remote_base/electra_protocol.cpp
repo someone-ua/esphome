@@ -40,7 +40,7 @@ optional<ElectraData> ElectraProtocol::decode(RemoteReceiveData src) {
   ESP_LOGD(TAG, "Value1 decoded: 0x%04X", data.value1);
 
   int i = 0;
-  for (uint64_t mask = 1; mask; mask <<= 1) {
+  for (uint48_t mask = 1; mask; mask <<= 1) {
     if (src.expect_item(BIT_HIGH_US, BIT_ONE_LOW_US)) {
       data.value2 |= mask;
     } else if (src.expect_item(BIT_HIGH_US, BIT_ZERO_LOW_US)) {
