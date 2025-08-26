@@ -11,8 +11,8 @@ struct ElectraData {
   {
       uint64_t value;
       struct {
-          uint64_t something : 24;
-          uint temperature : 4;
+          uint64_t something : 63;
+          uint temperature : 1;
       };
   } payload;
 
