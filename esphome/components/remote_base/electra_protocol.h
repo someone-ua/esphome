@@ -7,7 +7,7 @@ namespace remote_base {
 
 struct ElectraData {
   uint64_t magic;
-  union payload
+  union __attribute__((packed)) payload
   {
       uint64_t value;
       struct __attribute__((packed)) {
