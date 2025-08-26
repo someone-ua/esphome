@@ -39,6 +39,7 @@ optional<ElectraData> ElectraProtocol::decode(RemoteReceiveData src) {
 
   ESP_LOGD(TAG, "Value1 decoded: 0x%04X", data.value1);
 
+  int i = 0;
   for (uint64_t mask = 1; mask; mask <<= 1) {
     if (src.expect_item(BIT_HIGH_US, BIT_ONE_LOW_US)) {
       data.value2 |= mask;
@@ -48,7 +49,9 @@ optional<ElectraData> ElectraProtocol::decode(RemoteReceiveData src) {
       ESP_LOGD(TAG, "Value2 decoding failed at mask 0x%X", mask);
       break;
     }
+    i++;
   }
+  ESP_LOGD(TAG, "Value2 decoded bits: %d", i);
 
   ESP_LOGD(TAG, "Value2 decoded: 0x%X", data.value2);
 
