@@ -54,7 +54,7 @@ void ElectraProtocol::dump(const ElectraData &data) {
   {
     ESP_LOGI(TAG, " mode: heat, temp: %uC", 153 - data.payload.fields.mod_and_temp);
   }
-  else if (data.payload.fields.mod_and_temp <= 0x0B)
+  else if ((data.payload.fields.mod_and_temp <= 0x0B) || ((data.payload.fields.mod_and_temp <= 0xFF) && (data.payload.fields.mod_and_temp >= 0xFC)))
   {
     ESP_LOGI(TAG, " mode: cool, temp: %uC", 27 - (int8_t)data.payload.fields.mod_and_temp);
   }
