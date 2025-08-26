@@ -11,7 +11,7 @@ struct ElectraData {
   {
       uint64_t value;
       struct __attribute__((packed)) {
-          uint64_t something : 42;
+          uint64_t something : 48;
           uint64_t temperature : 4;
       };
   } payload;
