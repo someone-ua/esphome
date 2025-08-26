@@ -52,7 +52,6 @@ optional<ElectraData> ElectraProtocol::decode(RemoteReceiveData src) {
   }
 
   ESP_LOGD(TAG, "Value2 decoded: 0x%04X", data.value2);
-  }
 
   return data;
 }
