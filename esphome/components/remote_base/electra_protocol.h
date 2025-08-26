@@ -11,6 +11,7 @@ struct ElectraData {
   {
       uint64_t value;
       uint8_t bytes[8];
+      uint32_t words[2];
       // struct __attribute__((packed)) {
       //       uint64_t   : 40;
       //       unsigned  mod_and_temp : 8;

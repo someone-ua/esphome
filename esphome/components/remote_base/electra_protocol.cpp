@@ -62,6 +62,7 @@ void ElectraProtocol::dump(const ElectraData &data) {
   ESP_LOGI(TAG, "  bytes: %02X %02X %02X %02X %02X %02X %02X %02X", data.payload.bytes[0], data.payload.bytes[1],
            data.payload.bytes[2], data.payload.bytes[3], data.payload.bytes[4], data.payload.bytes[5],
            data.payload.bytes[6], data.payload.bytes[7]);
+  ESP_LOGI(TAG, "  words: %08X %08X", data.payload.words[0], data.payload.words[1]);
 }
 
 }  // namespace remote_base
