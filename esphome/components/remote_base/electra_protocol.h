@@ -12,9 +12,9 @@ struct ElectraData {
       uint64_t value;
       uint8_t bytes[8];
       struct __attribute__((packed)) {
-            uint32_t  padding : 32;
+            uint32_t  padding : 36;
             unsigned  temperature : 4;
-            uint32_t  something : 28;
+            uint32_t  something : 24;
       } fields;
   } payload;
 
