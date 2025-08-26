@@ -19,7 +19,7 @@ void ElectraProtocol::encode(RemoteTransmitData *dst, const ElectraData &data) {
 optional<ElectraData> ElectraProtocol::decode(RemoteReceiveData src) {
   ElectraData data{
       .magic = 0,
-      .payload = {.value = 0},
+      .payload = {.valint64 = 0},
   };
   if (!src.expect_item(HEADER_HIGH_US, HEADER_LOW_US))
     return {};
