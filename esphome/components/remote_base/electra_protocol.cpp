@@ -45,6 +45,7 @@ optional<ElectraData> ElectraProtocol::decode(RemoteReceiveData src) {
     } else if (src.expect_item(BIT_HIGH_US, BIT_ZERO_LOW_US)) {
       data.value2 &= ~mask;
     } else {
+      ESP_LOGD(TAG, "Value2 decoding failed at mask 0x%04X", mask);
       break;
     }
   }
