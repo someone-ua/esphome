@@ -6,10 +6,18 @@ namespace esphome {
 namespace remote_base {
 
 struct ElectraData {
-  uint64_t value1;
-  uint64_t value2;
+  uint64_t magic;
+  union payload
+  {
+      uint64_t value;
+      struct {
+          uint something : 40;
+          uint temperature : 8;
+      };
+  } payload;
 
-  bool operator==(const ElectraData &rhs) const { return value1 == rhs.value1 && value2 == rhs.value2; }
+
+  bool operator==(const ElectraData &rhs) const { return magic == rhs.magic && payload.value == rhs.payload.value; }
 };
 
 class ElectraProtocol : public RemoteProtocol<ElectraData> {

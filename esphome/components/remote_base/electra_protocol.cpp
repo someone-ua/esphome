@@ -18,17 +18,17 @@ void ElectraProtocol::encode(RemoteTransmitData *dst, const ElectraData &data) {
 
 optional<ElectraData> ElectraProtocol::decode(RemoteReceiveData src) {
   ElectraData data{
-      .value1 = 0,
-      .value2 = 0,
+      .magic = 0,
+      .payload = {.value = 0},
   };
   if (!src.expect_item(HEADER_HIGH_US, HEADER_LOW_US))
     return {};
 
   for (uint64_t mask = 1; mask; mask <<= 1) {
     if (src.expect_item(BIT_HIGH_US, BIT_ONE_LOW_US)) {
-      data.value1 |= mask;
+      data.magic |= mask;
     } else if (src.expect_item(BIT_HIGH_US, BIT_ZERO_LOW_US)) {
-      data.value1 &= ~mask;
+      data.magic &= ~mask;
     } else {
       return {};
     }
@@ -37,9 +37,9 @@ optional<ElectraData> ElectraProtocol::decode(RemoteReceiveData src) {
   int i = 0;
   for (uint64_t mask = 1; mask; mask <<= 1) {
     if (src.expect_item(BIT_HIGH_US, BIT_ONE_LOW_US)) {
-      data.value2 |= mask;
+      data.payload.value |= mask;
     } else if (src.expect_item(BIT_HIGH_US, BIT_ZERO_LOW_US)) {
-      data.value2 &= ~mask;
+      data.payload.value &= ~mask;
     } else {
       break;
     }
@@ -49,7 +49,8 @@ optional<ElectraData> ElectraProtocol::decode(RemoteReceiveData src) {
   return data;
 }
 void ElectraProtocol::dump(const ElectraData &data) {
-  ESP_LOGI(TAG, "Received Electra: value1=0x%04X, value2=0x%04X", data.value1, data.value2);
+  ESP_LOGI(TAG, "Received Electra: magic=0x%016" PRIX64 ", payload=0x%016" PRIX64, data.magic, data.payload.value);
+  ESP_LOGI(TAG, "  something=0x%010" PRIX64 ", temperature=%d", data.payload.something, data.payload.temperature);
 }
 
 }  // namespace remote_base
