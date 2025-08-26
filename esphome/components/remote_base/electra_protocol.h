@@ -10,6 +10,7 @@ struct ElectraData {
   union __attribute__((packed)) payload
   {
       uint64_t value;
+      uint8_t bytes[8];
       struct __attribute__((packed)) {
             uint64_t  padding : 24;
             unsigned  temperature : 4;

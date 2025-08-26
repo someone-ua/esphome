@@ -52,6 +52,9 @@ void ElectraProtocol::dump(const ElectraData &data) {
   ESP_LOGI(TAG, "Received Electra: magic=0x%016X, payload=0x%016X", data.magic, data.payload.value);
   ESP_LOGI(TAG, "  something=0x%X, temperature=%X", data.payload.fields.something, data.payload.fields.temperature);
   ESP_LOGI(TAG, " padding=0x%X", data.payload.fields.padding);
+  ESP_LOGI(TAG, "  bytes: %02X %02X %02X %02X %02X %02X %02X %02X", data.payload.bytes[0], data.payload.bytes[1],
+           data.payload.bytes[2], data.payload.bytes[3], data.payload.bytes[4], data.payload.bytes[5],
+           data.payload.bytes[6], data.payload.bytes[7]);
 }
 
 }  // namespace remote_base
