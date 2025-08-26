@@ -17,7 +17,7 @@ struct ElectraData {
       //       unsigned  mod_and_temp : 8;
       //       uint16_t   : 16;
       // } fields;
-  } payload;
+  };
 
 
   bool operator==(const ElectraData &rhs) const { return magic == rhs.magic && payload.value == rhs.payload.value; }
