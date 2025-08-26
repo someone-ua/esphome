@@ -9,7 +9,7 @@ struct ElectraData {
   uint64_t magic;
   union
   {
-      uint64_t value;
+      uint64_t valint64;
       uint8_t bytes[8];
       uint32_t words[2];
       // struct __attribute__((packed)) {
@@ -20,7 +20,7 @@ struct ElectraData {
   } payload;
 
 
-  bool operator==(const ElectraData &rhs) const { return magic == rhs.magic && payload.value == rhs.payload.value; }
+  bool operator==(const ElectraData &rhs) const { return magic == rhs.magic && payload.valint64 == rhs.payload.valint64; }
 };
 
 class ElectraProtocol : public RemoteProtocol<ElectraData> {
