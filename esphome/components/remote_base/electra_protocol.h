@@ -25,6 +25,9 @@ struct ElectraData {
            payload.words[1] == rhs.payload.words[1] &&
            payload.words[2] == rhs.payload.words[2];
   }
+
+  uint8_t temperature() const { return 31 - payload.fields.temperature; }
+  void set_temperature(uint8_t temp) { payload.fields.temperature = 31 - temp; }
 };
 
 class ElectraProtocol : public RemoteProtocol<ElectraData> {
