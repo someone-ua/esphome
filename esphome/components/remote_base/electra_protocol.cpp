@@ -78,6 +78,8 @@ void ElectraProtocol::dump(const ElectraData &data) {
            data.payload.fields.swing_vertical);
   ESP_LOGI(TAG, " timer: %s",
            data.payload.fields.timer ? "yes" : "no");
+  ESP_LOGI(TAG, " timer_decminutes: %d",
+           data.payload.fields.timer_decminutes);
   ESP_LOGI(TAG, " checksum is %s",
            data.checksum_ok() ? "valid" : "invalid");
 }
