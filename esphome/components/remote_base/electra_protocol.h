@@ -1,6 +1,7 @@
 #pragma once
 
 #include "remote_base.h"
+#include "esphome/components/climate_ir/climate_ir.h"
 
 namespace esphome {
 namespace remote_base {
@@ -16,7 +17,7 @@ namespace remote_base {
 #define AC_FAN_LOW 0x2
 #define AC_FAN_MEDIUM 0x3
 #define AC_FAN_HIGH 0x5
-#define AC_SWING_VERTICAL_ON_VALUE 0x7
+#define AC_SWING_VERTICAL_ON 0x7
 #define AC_SWING_VERTICAL_OFF 0x0
 
 struct ElectraData {
