@@ -49,12 +49,13 @@ optional<ElectraData> ElectraProtocol::decode(RemoteReceiveData src) {
   return data;
 }
 void ElectraProtocol::dump(const ElectraData &data) {
-  ESP_LOGI(TAG, "Received Electra: magic=0x%016llX", data.magic);
+  ESP_LOGI(TAG, "Received Electra: magic=0x%08X", data.magic);
 
-  ESP_LOGI(TAG, " bytes: %02X %02X %02X %02X %02X %02X %02X %02X",
+  ESP_LOGI(TAG, " bytes: %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X",
            data.payload.bytes[0], data.payload.bytes[1],
            data.payload.bytes[2], data.payload.bytes[3], data.payload.bytes[4], data.payload.bytes[5],
-           data.payload.bytes[6], data.payload.bytes[7]);
+           data.payload.bytes[6], data.payload.bytes[7], data.payload.bytes[8], data.payload.bytes[9],
+           data.payload.bytes[10], data.payload.bytes[11]);
   ESP_LOGI(TAG, " words: %08X %08X %08X",
            data.payload.words[0], data.payload.words[1], data.payload.words[2]);
 }
