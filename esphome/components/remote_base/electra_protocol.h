@@ -202,6 +202,14 @@ struct ElectraData {
   bool sleep_mode() const {
     return payload.fields.fan == AC_FAN_SLEEP;
   }
+
+  void set_checksum() {
+    uint8_t sum = 0x15;
+    for (int i = 0; i < 9; i++) {
+      sum += payload.bytes[i];
+    }
+    payload.fields.checksum = sum;
+  }
 };
 
 class ElectraProtocol : public RemoteProtocol<ElectraData> {

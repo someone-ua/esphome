@@ -71,6 +71,8 @@ void ElectraClimate::transmit_state() {
     data.set_fan_mode(this->fan_mode.value_or(climate::CLIMATE_FAN_AUTO));
     data.set_swing_mode(this->swing_mode);
 
+    data.set_checksum();
+
     // Send the code
     auto transmit = this->transmitter_->transmit();
     auto *transmit_data = transmit.get_data();
