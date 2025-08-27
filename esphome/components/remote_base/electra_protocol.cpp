@@ -34,12 +34,12 @@ optional<ElectraData> ElectraProtocol::decode(RemoteReceiveData src) {
     }
   }
 
-  for (int i = 0; i < 3; i++) {
-    for (uint32_t mask = 1; mask; mask <<= 1) {
+  for (int i = 0; i < 12; i++) {
+    for (uint8_t mask = 1; mask; mask <<= 1) {
       if (src.expect_item(BIT_HIGH_US, BIT_ONE_LOW_US)) {
-        data.payload.words[i] |= mask;
+        data.payload.bytes[i] |= mask;
       } else if (src.expect_item(BIT_HIGH_US, BIT_ZERO_LOW_US)) {
-        data.payload.words[i] &= ~mask;
+        data.payload.bytes[i] &= ~mask;
       } else {
         break;
       }
