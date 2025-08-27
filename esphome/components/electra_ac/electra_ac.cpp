@@ -33,58 +33,13 @@ bool ElectraClimate::on_receive(remote_base::RemoteReceiveData data) {
   this->target_temperature = ir_message.temperature();
 
   // Mode
-  switch (ir_message.payload.fields.mode) {
-    case 0:
-      this->mode = climate::CLIMATE_MODE_AUTO;
-      break;
-    case 1:
-      this->mode = climate::CLIMATE_MODE_COOL;
-      break;
-    case 2:
-      this->mode = climate::CLIMATE_MODE_DRY;
-      break;
-    case 3:
-      this->mode = climate::CLIMATE_MODE_FAN_ONLY;
-      break;
-    case 4:
-      this->mode = climate::CLIMATE_MODE_HEAT;
-      break;
-    default:
-      ESP_LOGW(TAG, "Received unknown Electra AC mode: %d", ir_message.payload.fields.mode);
-      this->mode = climate::CLIMATE_MODE_OFF;
-      break;
-  }
+  this->mode = ir_message.get_mode();
 
   // Fan
-  switch (ir_message.payload.fields.fan) {
-    case 0:
-      this->fan_mode = climate::CLIMATE_FAN_AUTO;
-      break;
-    case 1:
-      this->fan_mode = climate::CLIMATE_FAN_LOW;
-      break;
-    case 2:
-      this->fan_mode = climate::CLIMATE_FAN_MEDIUM;
-      break;
-    case 3:
-      this->fan_mode = climate::CLIMATE_FAN_HIGH;
-      break;
-    default:
-      ESP_LOGW(TAG, "Received unknown Electra AC fan speed: %d", ir_message.payload.fields.fan);
-      this->fan_mode = climate::CLIMATE_FAN_AUTO;
-      break;
-  }
+  this->fan_mode = ir_message.get_fan_mode();
 
   // Swing
-  if (ir_message.payload.fields.swing_vertical == 0 && ir_message.payload.fields.swing_horizontal == 0) {
-    this->swing_mode = climate::CLIMATE_SWING_OFF;
-  } else if (ir_message.payload.fields.swing_vertical == 0 && ir_message.payload.fields.swing_horizontal == 1) {
-    this->swing_mode = climate::CLIMATE_SWING_HORIZONTAL;
-  } else if (ir_message.payload.fields.swing_vertical == 1 && ir_message.payload.fields.swing_horizontal == 0) {
-    this->swing_mode = climate::CLIMATE_SWING_VERTICAL;
-  } else {
-    this->swing_mode = climate::CLIMATE_SWING_BOTH;
-  }
+  this->swing_mode = ir_message.get_swing_mode();
 
   this->publish_state();
   return true;

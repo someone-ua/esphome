@@ -5,6 +5,20 @@
 namespace esphome {
 namespace remote_base {
 
+#define ELECTRA_MAGIC 0x0126CB23
+
+#define AC_MODE_FEEL 0x8
+#define AC_MODE_COOL 0x3
+#define AC_MODE_DRY 0x2
+#define AC_MODE_FAN 0x7
+#define AC_MODE_HEAT 0x1
+#define AC_FAN_AUTO 0x0
+#define AC_FAN_LOW 0x2
+#define AC_FAN_MEDIUM 0x3
+#define AC_FAN_HIGH 0x5
+#define AC_SWING_VERTICAL_ON_VALUE 0x7
+#define AC_SWING_VERTICAL_OFF 0x0
+
 struct ElectraData {
   uint32_t magic;
   union
@@ -64,6 +78,49 @@ struct ElectraData {
       sum += payload.bytes[i];
     }
     return sum == payload.fields.checksum;
+  }
+  esphome::climate::ClimateMode get_mode() const {
+    switch (payload.fields.mode) {
+      case AC_MODE_FEEL:
+        return esphome::climate::CLIMATE_MODE_AUTO;
+      case AC_MODE_COOL:
+        return esphome::climate::CLIMATE_MODE_COOL;
+      case AC_MODE_DRY:
+        return esphome::climate::CLIMATE_MODE_DRY;
+      case AC_MODE_FAN:
+        return esphome::climate::CLIMATE_MODE_FAN_ONLY;
+      case AC_MODE_HEAT:
+        return esphome::climate::CLIMATE_MODE_HEAT;
+      default:
+        return esphome::climate::CLIMATE_MODE_OFF;
+    }
+  }
+
+  esphome::climate::ClimateFanMode get_fan_mode() const {
+    switch (payload.fields.fan) {
+      case AC_FAN_AUTO:
+        return esphome::climate::CLIMATE_FAN_AUTO;
+      case AC_FAN_LOW:
+        return esphome::climate::CLIMATE_FAN_LOW;
+      case AC_FAN_MEDIUM:
+        return esphome::climate::CLIMATE_FAN_MEDIUM;
+      case AC_FAN_HIGH:
+        return esphome::climate::CLIMATE_FAN_HIGH;
+      default:
+        return esphome::climate::CLIMATE_FAN_AUTO;
+    }
+  }
+
+  esphome::climate::ClimateSwingMode get_swing_mode() const {
+    if (payload.fields.swing_vertical == AC_SWING_VERTICAL_OFF && !payload.fields.swing_horizontal) {
+      return esphome::climate::CLIMATE_SWING_OFF;
+    } else if (payload.fields.swing_vertical == AC_SWING_VERTICAL_OFF && payload.fields.swing_horizontal) {
+      return esphome::climate::CLIMATE_SWING_HORIZONTAL;
+    } else if (payload.fields.swing_vertical == AC_SWING_VERTICAL_ON && !payload.fields.swing_horizontal) {
+      return esphome::climate::CLIMATE_SWING_VERTICAL;
+    } else {
+      return esphome::climate::CLIMATE_SWING_BOTH;
+    }
   }
 };
 
