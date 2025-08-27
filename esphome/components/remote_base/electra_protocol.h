@@ -23,8 +23,9 @@ struct ElectraData {
             uint8_t : 3;
             uint8_t temperature : 4; // byte 3
             uint8_t : 4;
-            uint8_t fan : 3; // byte 4
-            uint8_t : 5;
+            bool sleep : 1; // byte 4
+            uint8_t fan : 3;
+            uint8_t : 4;
             uint8_t unused3 [7];
       } fields;
   } payload;

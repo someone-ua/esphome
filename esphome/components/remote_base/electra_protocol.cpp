@@ -70,6 +70,8 @@ void ElectraProtocol::dump(const ElectraData &data) {
            data.payload.fields.health ? "yes" : "no");
   ESP_LOGI(TAG, " fan: 0x%X",
            data.payload.fields.fan);
+  ESP_LOGI(TAG, " sleep: %s",
+           data.payload.fields.sleep ? "yes" : "no");
 }
 
 }  // namespace remote_base
