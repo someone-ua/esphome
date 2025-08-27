@@ -20,7 +20,7 @@ bool ElectraClimate::on_receive(remote_base::RemoteReceiveData data) {
   }
 
   ESP_LOGD(TAG, "Received Electra AC message:");
-  remote_base::ElectraProtocol::dump(ir_message);
+  protocol.dump(ir_message);
 
   // Power
   if (!ir_message.payload.fields.on) {
