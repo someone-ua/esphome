@@ -70,12 +70,10 @@ void ElectraProtocol::dump(const ElectraData &data) {
            data.payload.fields.health ? "yes" : "no");
   ESP_LOGI(TAG, " turbo: %s",
            data.payload.fields.turbo ? "yes" : "no");
-  ESP_LOGI(TAG, " fan: 0x%X",
-           data.payload.fields.fan);
-  ESP_LOGI(TAG, " swing_horizontal: %s",
-           data.payload.fields.swing_horizontal ? "yes" : "no");
-  ESP_LOGI(TAG, " swing_vertical: 0x%X",
-           data.payload.fields.swing_vertical);
+  ESP_LOGI(TAG, " swing_mode: %s",
+           esphome::climate::climate_swing_mode_to_string(data.get_swing_mode()));
+  ESP_LOGI(TAG, " fan_mode: %s",
+           esphome::climate::climate_fan_mode_to_string(data.get_fan_mode()));
   ESP_LOGI(TAG, " timer: %s",
            data.payload.fields.timer ? "yes" : "no");
   ESP_LOGI(TAG, " timer_deciminutes: %d",
