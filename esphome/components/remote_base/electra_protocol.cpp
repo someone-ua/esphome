@@ -76,6 +76,8 @@ void ElectraProtocol::dump(const ElectraData &data) {
            data.payload.fields.swing_horizontal ? "yes" : "no");
   ESP_LOGI(TAG, " swing_vertical: 0x%X",
            data.payload.fields.swing_vertical);
+  ESP_LOGI(TAG, " timer: 0x%X",
+           data.payload.fields.timer);
   ESP_LOGI(TAG, " checksum is %s",
            data.checksum_ok() ? "valid" : "invalid");
 }

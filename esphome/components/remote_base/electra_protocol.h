@@ -15,7 +15,7 @@ struct ElectraData {
             uint8_t unused1; // byte 0
             uint8_t : 2;  // byte 1
             bool on : 1;
-            uint8_t : 3;
+            uint8_t timer : 3;
             bool display_off : 1;
             bool eco : 1;
             uint8_t mode : 4; // byte 2
