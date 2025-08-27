@@ -13,7 +13,9 @@ struct ElectraData {
       uint32_t words[3];
       struct {
             uint8_t unused1;
-            uint8_t : 6;
+            uint8_t : 2;
+            bool on : 1;
+            uint8_t : 3;
             bool display_off : 1;
             bool eco : 1;
             uint8_t mode : 4;
