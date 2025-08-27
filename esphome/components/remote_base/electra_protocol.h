@@ -49,7 +49,7 @@ struct ElectraData {
     for (int i = 0; i < 9; i++) {
       sum += payload.bytes[i];
     }
-    return sum % 256 == payload.fields.checksum;
+    return sum == payload.fields.checksum;
   }
 };
 
