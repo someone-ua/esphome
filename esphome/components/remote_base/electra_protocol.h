@@ -16,7 +16,9 @@ struct ElectraData {
             uint8_t : 6;
             bool display_off : 1;
             bool eco : 1;
-            uint8_t mode;
+            uint8_t mode : 4;
+            bool health : 1;
+            uint8_t : 3;
             uint8_t temperature : 4;
             uint8_t : 4;
             uint8_t unused3 [8];
