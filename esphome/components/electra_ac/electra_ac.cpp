@@ -1,5 +1,4 @@
 #include "electra_ac.h"
-#include "electra_protocol.h"
 #include "esphome/core/log.h"
 
 namespace esphome {

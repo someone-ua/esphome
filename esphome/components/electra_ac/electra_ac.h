@@ -1,6 +1,6 @@
 #pragma once
 
-#include "esphome/components/climate_ir/climate_ir.h"
+#include "esphome/components/remote_base/climate_ir/climate_ir.h"
 
 namespace esphome {
 namespace electra_ac {
