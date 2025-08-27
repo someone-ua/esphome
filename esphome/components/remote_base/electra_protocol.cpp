@@ -75,7 +75,7 @@ void ElectraProtocol::dump(const ElectraData &data) {
   ESP_LOGI(TAG, " fan_mode: %s",
            esphome::climate::climate_fan_mode_to_string(data.get_fan_mode()));
   ESP_LOGI(TAG, " sleep: %s",
-           data.payload.fields.sleep ? "yes" : "no");
+           data.sleep_mode() ? "yes" : "no");
   ESP_LOGI(TAG, " timer: %s",
            data.payload.fields.timer ? "yes" : "no");
   ESP_LOGI(TAG, " timer_deciminutes: %d",
