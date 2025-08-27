@@ -19,7 +19,7 @@ struct ElectraData {
             uint8_t unused2;
             uint8_t temperature : 4;
             uint8_t : 4;
-            uint8_t unused2 [8];
+            uint8_t unused3 [8];
       } fields;
   } payload;
 
