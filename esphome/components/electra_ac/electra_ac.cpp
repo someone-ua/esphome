@@ -43,8 +43,6 @@ bool ElectraClimate::on_receive(remote_base::RemoteReceiveData data) {
     this->preset = climate::CLIMATE_PRESET_ECO;
   } else if (ir_message.payload.fields.turbo) {
     this->preset = climate::CLIMATE_PRESET_BOOST;
-  } else if (ir_message.sleep_mode()) {
-    this->preset = climate::CLIMATE_PRESET_SLEEP;
   } else {
     this->preset = climate::CLIMATE_PRESET_NONE;
   }

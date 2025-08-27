@@ -131,6 +131,8 @@ struct ElectraData {
         return esphome::climate::CLIMATE_FAN_MEDIUM;
       case AC_FAN_HIGH:
         return esphome::climate::CLIMATE_FAN_HIGH;
+      case AC_FAN_SLEEP:
+        return esphome::climate::CLIMATE_FAN_QUIET;
       default:
         return esphome::climate::CLIMATE_FAN_AUTO;
     }
