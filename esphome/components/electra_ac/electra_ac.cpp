@@ -85,6 +85,9 @@ bool ElectraClimate::on_receive(remote_base::RemoteReceiveData data) {
   } else {
     this->swing_mode = climate::CLIMATE_SWING_BOTH;
   }
+
+  this->publish_state();
+  return true;
 }
 
 void ElectraClimate::transmit_state() {
