@@ -10,7 +10,6 @@ bool ElectraClimate::on_receive(remote_base::RemoteReceiveData data) {
   remote_base::ElectraProtocol protocol;
   auto maybe_data = protocol.decode(data);
   if (!maybe_data.has_value()) {
-    ESP_LOGW(TAG, "Received invalid Electra AC message");
     return false;
   }
   auto ir_message = maybe_data.value();
