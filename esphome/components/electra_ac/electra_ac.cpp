@@ -73,9 +73,9 @@ void ElectraClimate::transmit_state() {
 
     // Send the code
     auto transmit = this->transmitter_->transmit();
-    auto *data = transmit.get_data();
+    auto *transmit_data = transmit.get_data();
 
-    this->protocol.encode(data, data);
+    this->protocol.encode(transmit_data, data);
     transmit.perform();
 }
 
