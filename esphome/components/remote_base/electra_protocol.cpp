@@ -64,6 +64,8 @@ void ElectraProtocol::dump(const ElectraData &data) {
            data.payload.fields.display ? "yes" : "no");
   ESP_LOGI(TAG, " eco: %s",
            data.payload.fields.eco ? "yes" : "no");
+  ESP_LOGI(TAG, " mode: %d",
+           data.payload.fields.mode);
 }
 
 }  // namespace remote_base
