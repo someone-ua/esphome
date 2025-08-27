@@ -7,8 +7,7 @@ namespace electra_ac {
 static const char *const TAG = "electra_ac.climate";
 
 bool ElectraClimate::on_receive(remote_base::RemoteReceiveData data) {
-  remote_base::ElectraProtocol protocol;
-  auto maybe_data = protocol.decode(data);
+  auto maybe_data = this->protocol.decode(data);
   if (!maybe_data.has_value()) {
     return false;
   }
@@ -19,7 +18,7 @@ bool ElectraClimate::on_receive(remote_base::RemoteReceiveData data) {
   }
 
   ESP_LOGD(TAG, "Received Electra AC message:");
-  protocol.dump(ir_message);
+  this->protocol.dump(ir_message);
 
   // Power
   if (!ir_message.payload.fields.on) {
@@ -55,7 +54,29 @@ bool ElectraClimate::on_receive(remote_base::RemoteReceiveData data) {
 }
 
 void ElectraClimate::transmit_state() {
+    remote_base::ElectraData data{ .magic = ELECTRA_MAGIC };
+    data.payload.fields.on = this->mode != climate::CLIMATE_MODE_OFF;
+    data.payload.fields.display_off = false;  // TODO: Add support for display off
+    data.payload.fields.health = false;       // TODO: Add support for health mode
+    data.payload.fields.timer = false;        // TODO: Add support for timer
+    data.payload.fields.timer_deciminutes = 0;
 
+    if (this->target_temperature < AC1_TEMP_MIN)
+        this->target_temperature = AC1_TEMP_MIN;
+    if (this->target_temperature > AC1_TEMP_MAX)
+        this->target_temperature = AC1_TEMP_MAX;
+    data.set_temperature(this->target_temperature);
+
+    data.set_mode(this->mode);
+    data.set_fan_mode(this->fan_mode.value_or(climate::CLIMATE_FAN_AUTO));
+    data.set_swing_mode(this->swing_mode);
+
+    // Send the code
+    auto transmit = this->transmitter_->transmit();
+    auto *data = transmit.get_data();
+
+    this->protocol.encode(data, data);
+    transmit.perform();
 }
 
 } // namespace electra_ac

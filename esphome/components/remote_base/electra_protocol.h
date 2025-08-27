@@ -98,6 +98,29 @@ struct ElectraData {
     }
   }
 
+  void set_mode(esphome::climate::ClimateMode mode) {
+    switch (mode) {
+      case esphome::climate::CLIMATE_MODE_AUTO:
+        payload.fields.mode = AC_MODE_FEEL;
+        break;
+      case esphome::climate::CLIMATE_MODE_COOL:
+        payload.fields.mode = AC_MODE_COOL;
+        break;
+      case esphome::climate::CLIMATE_MODE_DRY:
+        payload.fields.mode = AC_MODE_DRY;
+        break;
+      case esphome::climate::CLIMATE_MODE_FAN_ONLY:
+        payload.fields.mode = AC_MODE_FAN;
+        break;
+      case esphome::climate::CLIMATE_MODE_HEAT:
+        payload.fields.mode = AC_MODE_HEAT;
+        break;
+      default:
+        payload.fields.mode = AC_MODE_COOL;
+        break;
+    }
+  }
+
   esphome::climate::ClimateFanMode get_fan_mode() const {
     switch (payload.fields.fan) {
       case AC_FAN_AUTO:
@@ -113,6 +136,32 @@ struct ElectraData {
     }
   }
 
+  void set_fan_mode(esphome::climate::ClimateFanMode fan_mode) {
+    switch (fan_mode) {
+      case esphome::climate::CLIMATE_FAN_AUTO:
+        payload.fields.fan = AC_FAN_AUTO;
+        break;
+      case esphome::climate::CLIMATE_FAN_LOW:
+        payload.fields.fan = AC_FAN_LOW;
+        break;
+      case esphome::climate::CLIMATE_FAN_MEDIUM:
+        payload.fields.fan = AC_FAN_MEDIUM;
+        break;
+      case esphome::climate::CLIMATE_FAN_HIGH:
+        payload.fields.fan = AC_FAN_HIGH;
+        break;
+      case esphome::climate::CLIMATE_FAN_QUIET:
+      case esphome::climate::CLIMATE_FAN_MIDDLE:
+      case esphome::climate::CLIMATE_FAN_FOCUS:
+      case esphome::climate::CLIMATE_FAN_DIFFUSE:
+        payload.fields.fan = AC_FAN_SLEEP; // map unsupported modes to sleep
+        break;
+      default:
+        payload.fields.fan = AC_FAN_AUTO;
+        break;
+    }
+  }
+
   esphome::climate::ClimateSwingMode get_swing_mode() const {
     if (payload.fields.swing_vertical == AC_SWING_VERTICAL_OFF && !payload.fields.swing_horizontal) {
       return esphome::climate::CLIMATE_SWING_OFF;
@@ -124,6 +173,32 @@ struct ElectraData {
       return esphome::climate::CLIMATE_SWING_BOTH;
     }
   }
+
+  void set_swing_mode(esphome::climate::ClimateSwingMode swing_mode) {
+    switch (swing_mode) {
+      case esphome::climate::CLIMATE_SWING_OFF:
+        payload.fields.swing_vertical = AC_SWING_VERTICAL_OFF;
+        payload.fields.swing_horizontal = false;
+        break;
+      case esphome::climate::CLIMATE_SWING_HORIZONTAL:
+        payload.fields.swing_vertical = AC_SWING_VERTICAL_OFF;
+        payload.fields.swing_horizontal = true;
+        break;
+      case esphome::climate::CLIMATE_SWING_VERTICAL:
+        payload.fields.swing_vertical = AC_SWING_VERTICAL_ON;
+        payload.fields.swing_horizontal = false;
+        break;
+      case esphome::climate::CLIMATE_SWING_BOTH:
+        payload.fields.swing_vertical = AC_SWING_VERTICAL_ON;
+        payload.fields.swing_horizontal = true;
+        break;
+      default:
+        payload.fields.swing_vertical = AC_SWING_VERTICAL_OFF;
+        payload.fields.swing_horizontal = false;
+        break;
+    }
+  }
+
   bool sleep_mode() const {
     return payload.fields.fan == AC_FAN_SLEEP;
   }

@@ -28,6 +28,8 @@ class ElectraClimate : public climate_ir::ClimateIR {
   void transmit_state() override;
   /// Handle received IR Buffer
   bool on_receive(remote_base::RemoteReceiveData data) override;
+ private:
+  remote_base::ElectraProtocol protocol{};
 };
 
 }  // namespace electra_ac

@@ -13,7 +13,40 @@ static const uint32_t BIT_ONE_LOW_US = 1060;
 static const uint32_t BIT_ZERO_LOW_US = 260;
 
 void ElectraProtocol::encode(RemoteTransmitData *dst, const ElectraData &data) {
+  uint16_t khz = 38;
+  dst->set_carrier_frequency(khz * 1000);
 
+  ESP_LOGD(TAG, "Send Electra: magic=0x%08X", data.magic);
+  ESP_LOGD(TAG, " bytes: %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X",
+           data.payload.bytes[0], data.payload.bytes[1],
+           data.payload.bytes[2], data.payload.bytes[3], data.payload.bytes[4], data.payload.bytes[5],
+           data.payload.bytes[6], data.payload.bytes[7], data.payload.bytes[8], data.payload.bytes[9],
+          data.payload.bytes[10], data.payload.bytes[11]);
+  // Header
+  dst->mark(HEADER_HIGH_US);
+  dst->space(HEADER_LOW_US);
+  // Magic
+  for (uint32_t mask = 1UL << 31; mask != 0; mask >>= 1) {
+    if (data.magic & mask) {
+      dst->mark(BIT_HIGH_US);
+      dst->space(BIT_ONE_LOW_US);
+    } else {
+      dst->mark(BIT_HIGH_US);
+      dst->space(BIT_ZERO_LOW_US);
+    }
+  }
+  // Payload
+  for (int i = 0; i < 12; i++) {
+    for (uint8_t mask = 1 << 7; mask != 0; mask >>= 1) {
+      if (data.payload.bytes[i] & mask) {
+        dst->mark(BIT_HIGH_US);
+        dst->space(BIT_ONE_LOW_US);
+      } else {
+        dst->mark(BIT_HIGH_US);
+        dst->space(BIT_ZERO_LOW_US);
+      }
+    }
+  }
 }
 
 optional<ElectraData> ElectraProtocol::decode(RemoteReceiveData src) {
