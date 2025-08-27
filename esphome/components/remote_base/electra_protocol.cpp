@@ -64,8 +64,8 @@ void ElectraProtocol::dump(const ElectraData &data) {
            data.payload.fields.display_off ? "no" : "yes");
   ESP_LOGI(TAG, " eco: %s",
            data.payload.fields.eco ? "yes" : "no");
-  ESP_LOGI(TAG, " mode: 0x%X",
-           data.payload.fields.mode);
+  ESP_LOGI(TAG, " mode: %s",
+           esphome::climate::climate_mode_to_string(data.get_mode()).c_str());
   ESP_LOGI(TAG, " health: %s",
            data.payload.fields.health ? "yes" : "no");
   ESP_LOGI(TAG, " turbo: %s",

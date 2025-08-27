@@ -19,7 +19,7 @@ class ElectraClimate : public climate_ir::ClimateIR {
              climate::CLIMATE_FAN_HIGH},
             {climate::CLIMATE_SWING_OFF, climate::CLIMATE_SWING_VERTICAL, climate::CLIMATE_SWING_HORIZONTAL,
              climate::CLIMATE_SWING_BOTH},
-            {climate::CLIMATE_PRESET_NONE, climate::CLIMATE_PRESET_SLEEP, climate::CLIMATE_PRESET_BOOST}) {}
+            {climate::CLIMATE_PRESET_NONE, climate::CLIMATE_PRESET_ECO, climate::CLIMATE_PRESET_SLEEP, climate::CLIMATE_PRESET_BOOST}) {}
 
   void setup() override { climate_ir::ClimateIR::setup(); }
 
