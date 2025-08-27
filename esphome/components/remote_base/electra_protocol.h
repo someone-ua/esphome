@@ -12,10 +12,10 @@ struct ElectraData {
       uint8_t bytes[12];
       uint32_t words[3];
       struct {
-            uint8_t [4] unused;
+            uint8_t unused [4];
             uint8_t temperature : 4;
             uint8_t : 4;
-            uint8_t [7] unused2;
+            uint8_t unused2 [7];
       } fields;
   } payload;
 
