@@ -72,6 +72,8 @@ void ElectraProtocol::dump(const ElectraData &data) {
            data.payload.fields.fan);
   ESP_LOGI(TAG, " swing_horizontal: %s",
            data.payload.fields.swing_horizontal ? "yes" : "no");
+  ESP_LOGI(TAG, " swing_vertical: 0x%X",
+           data.payload.fields.swing_vertical);
   ESP_LOGI(TAG, " checksum: 0x%02X",
            data.payload.fields.checksum);
   ESP_LOGI(TAG, " checksum is %s",
