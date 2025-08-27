@@ -17,6 +17,7 @@ namespace remote_base {
 #define AC_FAN_LOW 0x2
 #define AC_FAN_MEDIUM 0x3
 #define AC_FAN_HIGH 0x5
+#define AC_FAN_SLEEP 0x1
 #define AC_SWING_VERTICAL_ON 0x7
 #define AC_SWING_VERTICAL_OFF 0x0
 
@@ -122,6 +123,9 @@ struct ElectraData {
     } else {
       return esphome::climate::CLIMATE_SWING_BOTH;
     }
+  }
+  bool sleep_mode() const {
+    return payload.fields.fan == AC_FAN_SLEEP;
   }
 };
 
