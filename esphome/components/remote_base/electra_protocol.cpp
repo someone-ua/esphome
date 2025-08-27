@@ -74,6 +74,8 @@ void ElectraProtocol::dump(const ElectraData &data) {
            data.payload.fields.swing_horizontal ? "yes" : "no");
   ESP_LOGI(TAG, " checksum: 0x%02X",
            data.payload.fields.checksum);
+  ESP_LOGI(TAG, " checksum is %s",
+           data.checksum_ok() ? "valid" : "invalid");
 }
 
 }  // namespace remote_base

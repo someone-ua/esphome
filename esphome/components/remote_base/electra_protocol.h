@@ -43,6 +43,13 @@ struct ElectraData {
 
   uint8_t temperature() const { return 31 - payload.fields.temperature; }
   void set_temperature(uint8_t temp) { payload.fields.temperature = 31 - temp; }
+  bool checksum_ok() const {
+    uint8_t sum = 0x15;
+    for (int i = 0; i < 9; i++) {
+      sum += payload.bytes[i];
+    }
+    return sum % 256 == payload.fields.checksum;
+  }
 };
 
 class ElectraProtocol : public RemoteProtocol<ElectraData> {
