@@ -11,11 +11,12 @@ struct ElectraData {
   {
       uint8_t bytes[12];
       uint32_t words[3];
-      // struct __attribute__((packed)) {
-      //       uint64_t   : 40;
-      //       unsigned  mod_and_temp : 8;
-      //       uint16_t   : 16;
-      // } fields;
+      struct {
+            uint8_t [4];
+            uint8_t temperature : 4;
+            uint8_t : 4;
+            uint8_t [7];
+      } fields;
   } payload;
 
 
