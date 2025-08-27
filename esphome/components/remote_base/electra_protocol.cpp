@@ -59,7 +59,7 @@ void ElectraProtocol::dump(const ElectraData &data) {
   ESP_LOGI(TAG, " temperature: %d",
            data.temperature());
   ESP_LOGI(TAG, " display: %s",
-           data.payload.fields.display ? "yes" : "no");
+           data.payload.fields.display_off ? "no" : "yes");
   ESP_LOGI(TAG, " eco: %s",
            data.payload.fields.eco ? "yes" : "no");
   ESP_LOGI(TAG, " mode: %d",
