@@ -41,6 +41,14 @@ bool ElectraClimate::on_receive(remote_base::RemoteReceiveData data) {
   // Swing
   this->swing_mode = ir_message.get_swing_mode();
 
+  if (ir_message.payload.fields.eco) {
+    this->preset = climate::CLIMATE_PRESET_ECO;
+  } else if (ir_message.payload.fields.turbo) {
+    this->preset = climate::CLIMATE_PRESET_BOOST;
+  } else {
+    this->preset = climate::CLIMATE_PRESET_NONE;
+  }
+
   this->publish_state();
   return true;
 }
