@@ -29,7 +29,7 @@ struct ElectraData {
             uint8_t fan : 3;  // byte 4
             uint8_t swing_vertical : 3;
             uint8_t : 2;
-            uint8_t timer_decminutes; // byte 5
+            uint8_t timer_deciminutes; // byte 5
             uint8_t unused3 [2]; // bytes 6,7
             uint8_t : 3; // byte 8
             bool swing_horizontal : 1;
