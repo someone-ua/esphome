@@ -20,7 +20,9 @@ struct ElectraData {
             bool eco : 1;
             uint8_t mode : 4; // byte 2
             bool health : 1;
-            uint8_t : 3;
+            uint8_t : 1;
+            bool turbo : 1;
+            uint8_t : 1;
             uint8_t temperature : 4; // byte 3
             uint8_t : 4;
             uint8_t fan : 3;  // byte 4
