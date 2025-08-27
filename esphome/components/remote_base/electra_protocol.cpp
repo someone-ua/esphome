@@ -60,6 +60,10 @@ void ElectraProtocol::dump(const ElectraData &data) {
            data.payload.words[0], data.payload.words[1], data.payload.words[2]);
   ESP_LOGI(TAG, " temperature: %d",
            data.temperature());
+  ESP_LOGI(TAG, " display: %s",
+           data.payload.fields.display ? "yes" : "no");
+  ESP_LOGI(TAG, " eco: %s",
+           data.payload.fields.eco ? "yes" : "no");
 }
 
 }  // namespace remote_base
