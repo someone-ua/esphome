@@ -7,7 +7,8 @@ namespace electra_ac {
 static const char *const TAG = "electra_ac.climate";
 
 bool ElectraClimate::on_receive(remote_base::RemoteReceiveData data) {
-  auto maybe_data = remote_base::ElectraProtocol::decode(data);
+  ElectraProtocol protocol;
+  auto maybe_data = protocol.decode(data);
   if (!maybe_data.has_value()) {
     ESP_LOGW(TAG, "Received invalid Electra AC message");
     return false;
