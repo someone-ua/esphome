@@ -12,18 +12,20 @@ struct ElectraData {
       uint8_t bytes[12];
       uint32_t words[3];
       struct {
-            uint8_t unused1;
-            uint8_t : 2;
+            uint8_t unused1; // byte 0
+            uint8_t : 2;  // byte 1
             bool on : 1;
             uint8_t : 3;
             bool display_off : 1;
             bool eco : 1;
-            uint8_t mode : 4;
+            uint8_t mode : 4; // byte 2
             bool health : 1;
             uint8_t : 3;
-            uint8_t temperature : 4;
+            uint8_t temperature : 4; // byte 3
             uint8_t : 4;
-            uint8_t unused3 [8];
+            uint8_t fan : 3; // byte 4
+            uint8_t : 5;
+            uint8_t unused3 [7];
       } fields;
   } payload;
 
