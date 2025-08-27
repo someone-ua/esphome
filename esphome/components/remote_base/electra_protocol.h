@@ -25,7 +25,12 @@ struct ElectraData {
             uint8_t : 4;
             uint8_t fan : 3;  // byte 4
             uint8_t : 5;
-            uint8_t unused3 [7];
+            uint8_t unused3 [3]; // bytes 5,6,7
+            uint8_t : 3; // byte 8
+            bool swing_horizontal : 1;
+            uint8_t : 4;
+            uint8_t checksum; // byte 9
+            uint8_t unused4 [2]; // bytes 10,11
       } fields;
   } payload;
 
