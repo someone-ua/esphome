@@ -7,7 +7,7 @@ namespace remote_base {
 static const uint32_t HEADER_HIGH_US = 3120;
 static const uint32_t HEADER_LOW_US = 1570;
 static const uint32_t BIT_HIGH_US = 450;
-static const uint32_t BIT_ONE_LOW_US = 1000;
+static const uint32_t BIT_ONE_LOW_US = 1100;
 static const uint32_t BIT_ZERO_LOW_US = 280;
 
 void ElectraProtocol::encode(RemoteTransmitData *dst, const ElectraData &data) {
@@ -66,6 +66,7 @@ optional<ElectraData> ElectraProtocol::decode(RemoteReceiveData src) {
     } else if (src.expect_item(BIT_HIGH_US, BIT_ZERO_LOW_US)) {
       data.magic &= ~mask;
     } else {
+      ESP_LOGD(TAG, "Failed on value %d", src[src.get_index()]);
       return {};
     }
   }
