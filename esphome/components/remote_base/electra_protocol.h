@@ -99,7 +99,7 @@ struct ElectraData {
   }
 
   void set_mode(esphome::climate::ClimateMode mode) {
-    ESP_LOGD(TAG, "Setting mode to %s", esphome::climate::climate_mode_to_string(mode).c_str());
+    ESP_LOGD(TAG, "Setting mode to %s", esphome::climate::climate_mode_to_string(mode));
     switch (mode) {
       case esphome::climate::CLIMATE_MODE_AUTO:
         payload.fields.mode = AC_MODE_FEEL;
