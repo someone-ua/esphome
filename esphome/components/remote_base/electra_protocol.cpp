@@ -77,6 +77,8 @@ optional<ElectraData> ElectraProtocol::decode(RemoteReceiveData src) {
     }
   }
 
+  ESP_LOGD(TAG, "Size: %d, index: %d", src.size(), src.get_index());
+
   return data;
 }
 
