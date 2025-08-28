@@ -34,7 +34,7 @@ void ElectraProtocol::encode(RemoteTransmitData *dst, const ElectraData &data) {
     }
   }
   // Payload
-  for (int i = 0; i < 11; i++) {
+  for (int i = 0; i < 10; i++) {
     for (uint8_t mask = 1; mask != 0; mask <<= 1) {
       if (data.payload.bytes[i] & mask) {
         dst->mark(BIT_HIGH_US);
@@ -45,6 +45,9 @@ void ElectraProtocol::encode(RemoteTransmitData *dst, const ElectraData &data) {
       }
     }
   }
+
+  dst->mark(BIT_HIGH_US);
+  dst->space(BIT_ZERO_LOW_US);
 }
 
 optional<ElectraData> ElectraProtocol::decode(RemoteReceiveData src) {
