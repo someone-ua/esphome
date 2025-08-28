@@ -47,7 +47,7 @@ void ElectraProtocol::encode(RemoteTransmitData *dst, const ElectraData &data) {
   }
 
   dst->mark(BIT_HIGH_US);
-  dst->space(BIT_ZERO_LOW_US);
+  dst->space(BIT_ONE_LOW_US);
 }
 
 optional<ElectraData> ElectraProtocol::decode(RemoteReceiveData src) {
