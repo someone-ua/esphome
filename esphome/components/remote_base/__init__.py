@@ -839,49 +839,11 @@ async def nec_action(var, config, args):
     cg.add(var.set_command_repeats(template_))
 
 # Electra
-ElectraData, ElectraBinarySensor, ElectraTrigger, ElectraAction, ElectraDumper = declare_protocol("Electra")
-ELECTRA_SCHEMA = cv.Schema(
-    {
-        cv.Required(CONF_ADDRESS): cv.hex_uint16_t,
-        cv.Required(CONF_COMMAND): cv.hex_uint16_t,
-        cv.Optional(CONF_COMMAND_REPEATS, default=1): cv.uint16_t,
-    }
-)
-
-
-@register_binary_sensor("electra", ElectraBinarySensor, ELECTRA_SCHEMA)
-def electra_binary_sensor(var, config):
-    cg.add(
-        var.set_data(
-            cg.StructInitializer(
-                ElectraData,
-                ("address", config[CONF_ADDRESS]),
-                ("command", config[CONF_COMMAND]),
-                ("command_repeats", config[CONF_COMMAND_REPEATS]),
-            )
-        )
-    )
-
-
-@register_trigger("electra", ElectraTrigger, ElectraData)
-def electra_trigger(var, config):
-    pass
-
+ElectraData, ElectraDumper = declare_protocol("Electra")
 
 @register_dumper("electra", ElectraDumper)
 def electra_dumper(var, config):
     pass
-
-
-@register_action("electra", ElectraAction, ELECTRA_SCHEMA)
-async def electra_action(var, config, args):
-    template_ = await cg.templatable(config[CONF_ADDRESS], args, cg.uint16)
-    cg.add(var.set_address(template_))
-    template_ = await cg.templatable(config[CONF_COMMAND], args, cg.uint16)
-    cg.add(var.set_command(template_))
-    template_ = await cg.templatable(config[CONF_COMMAND_REPEATS], args, cg.uint16)
-    cg.add(var.set_command_repeats(template_))
-
 
 
 # Pioneer

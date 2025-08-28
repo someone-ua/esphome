@@ -223,18 +223,5 @@ class ElectraProtocol : public RemoteProtocol<ElectraData> {
 
 DECLARE_REMOTE_PROTOCOL(Electra)
 
-// template<typename... Ts> class ElectraAction : public RemoteTransmitterActionBase<Ts...> {
-//  public:
-//   TEMPLATABLE_VALUE(uint64_t, magic)
-//   TEMPLATABLE_VALUE(uint64_t, payload)
-
-//   void encode(RemoteTransmitData *dst, Ts... x) override {
-//     ElectraData data{};
-//     data.magic = this->magic_.value(x...);
-//     data.payload = this->data.payload_.value(x...);
-//     ElectraProtocol().encode(dst, data);
-//   }
-// };
-
 }  // namespace remote_base
 }  // namespace esphome
