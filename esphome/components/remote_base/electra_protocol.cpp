@@ -7,8 +7,8 @@ namespace remote_base {
 static const uint32_t HEADER_HIGH_US = 3120;
 static const uint32_t HEADER_LOW_US = 1570;
 static const uint32_t BIT_HIGH_US = 560;
-static const uint32_t BIT_ONE_LOW_US = 1060;
-static const uint32_t BIT_ZERO_LOW_US = 260;
+static const uint32_t BIT_ONE_LOW_US = 1120;
+static const uint32_t BIT_ZERO_LOW_US = 280;
 
 void ElectraProtocol::encode(RemoteTransmitData *dst, const ElectraData &data) {
   uint16_t khz = 38;
@@ -45,9 +45,6 @@ void ElectraProtocol::encode(RemoteTransmitData *dst, const ElectraData &data) {
       }
     }
   }
-
-  dst->mark(BIT_HIGH_US);
-  dst->space(BIT_ZERO_LOW_US);
 }
 
 optional<ElectraData> ElectraProtocol::decode(RemoteReceiveData src) {
