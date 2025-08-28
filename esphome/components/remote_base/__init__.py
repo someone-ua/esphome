@@ -839,7 +839,7 @@ async def nec_action(var, config, args):
     cg.add(var.set_command_repeats(template_))
 
 # Electra
-ElectraData, ElectraDumper = declare_protocol("Electra")
+ElectraData, ElectraBinarySensor, ElectraTrigger, ElectraAction, ElectraDumper = declare_protocol("Electra")
 
 @register_dumper("electra", ElectraDumper)
 def electra_dumper(var, config):
