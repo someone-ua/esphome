@@ -24,7 +24,7 @@ void ElectraProtocol::encode(RemoteTransmitData *dst, const ElectraData &data) {
   dst->mark(HEADER_HIGH_US);
   dst->space(HEADER_LOW_US);
   // Magic
-  for (uint32_t mask = 1UL << 31; mask != 0; mask >>= 1) {
+  for (uint32_t mask = 1UL; mask != 0; mask <<= 1) {
     if (data.magic & mask) {
       dst->mark(BIT_HIGH_US);
       dst->space(BIT_ONE_LOW_US);
@@ -35,7 +35,7 @@ void ElectraProtocol::encode(RemoteTransmitData *dst, const ElectraData &data) {
   }
   // Payload
   for (int i = 0; i < 12; i++) {
-    for (uint8_t mask = 1 << 7; mask != 0; mask >>= 1) {
+    for (uint8_t mask = 1; mask != 0; mask <<= 1) {
       if (data.payload.bytes[i] & mask) {
         dst->mark(BIT_HIGH_US);
         dst->space(BIT_ONE_LOW_US);
