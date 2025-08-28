@@ -52,7 +52,8 @@ struct ElectraData {
             // byte 4
             uint8_t fan : 3;
             uint8_t swing_vertical : 3;
-            uint8_t : 2;
+            uint8_t always_one2 : 1;
+            uint8_t : 1;
             // byte 5
             uint8_t timer_deciminutes;
             // bytes 6,7
@@ -61,7 +62,7 @@ struct ElectraData {
             uint8_t : 3;
             bool swing_horizontal : 1;
             uint8_t : 3;
-            uint8_t always_one2 : 1;
+            uint8_t always_one3 : 1;
             // byte 9
             uint8_t checksum;
             // bytes 10,11

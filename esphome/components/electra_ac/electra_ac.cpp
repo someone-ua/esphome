@@ -55,6 +55,7 @@ void ElectraClimate::transmit_state() {
     remote_base::ElectraData data{ .magic = ELECTRA_MAGIC };
     data.payload.fields.always_one = 1;
     data.payload.fields.always_one2 = 1;
+    data.payload.fields.always_one3 = 1;
     // Set fields
     data.payload.fields.on = this->mode != climate::CLIMATE_MODE_OFF;
     data.payload.fields.display_off = false;  // TODO: Add support for display off
