@@ -59,9 +59,9 @@ struct ElectraData {
             uint8_t unused3 [2];
             // byte 8
             uint8_t : 3;
-            bool swing_horizontal : 1;
+            bool swing_horizontal : 1 = 1;
             uint8_t : 3;
-            uint8_t always_one2 : 1;
+            uint8_t always_one2 : 1 = 1;
             // byte 9
             uint8_t checksum;
             // bytes 10,11
