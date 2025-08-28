@@ -4,8 +4,6 @@
 namespace esphome {
 namespace remote_base {
 
-static const char *const TAG = "remote.electra";
-
 static const uint32_t HEADER_HIGH_US = 3120;
 static const uint32_t HEADER_LOW_US = 1570;
 static const uint32_t BIT_HIGH_US = 560;

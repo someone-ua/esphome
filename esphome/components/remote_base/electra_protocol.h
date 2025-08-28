@@ -6,6 +6,8 @@
 namespace esphome {
 namespace remote_base {
 
+static const char *const TAG = "remote.electra";
+
 #define ELECTRA_MAGIC 0x0126CB23
 
 #define AC_MODE_FEEL 0x8
