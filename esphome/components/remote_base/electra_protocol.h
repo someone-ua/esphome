@@ -122,7 +122,7 @@ struct ElectraData {
         payload.fields.mode = AC_MODE_COOL;
         break;
     }
-    ESP_LOGD(TAG, "Set mode to %XX", payload.fields.mode);
+    ESP_LOGD(TAG, "Set mode to 0x%X", payload.fields.mode);
   }
 
   esphome::climate::ClimateFanMode get_fan_mode() const {
